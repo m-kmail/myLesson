@@ -1,7 +1,5 @@
 //const render = new Renderer();
 
-const bodyParser = require("body-parser");
-
 const logEmailField = $("#login").find(".email");
 const logPassField = $("#login").find(".pass");
 const ErrorDiv = $(".Error");
@@ -18,7 +16,10 @@ const toreg = function () {
   $("#login").hide();
   $("#register").show();
 };
-
+// $("#ii").on("click", function () {
+//   console.log("asasd");
+//   window.location.href = "./student page/student.html";
+// });
 const validEmail = function (email) {
   let x;
   if (email.includes("@student.com")) x = email.indexOf("@student.com") + 12;
