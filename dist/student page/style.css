@@ -1,41 +1,53 @@
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 table {
+  margin-left: 20%;
   border-collapse: collapse;
+  width: 60%;
 }
 
 td {
   border: 1px solid #999;
   padding: 0.5rem;
 }
-#global-nav {
-  top: 0;
-  height: 150px;
+.site-title {
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+}
+
+.header {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+
+  display: grid;
+  grid-template-columns: 5fr 1fr;
   width: 100%;
   background: #4d6e85;
   color: #fff;
-  text-align: center;
-  line-height: 100px;
-  margin: auto;
-  display: flex;
+  padding: 2%;
 }
-.site-title {
-  display: inline-block;
-  align-items: center;
+.title {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: xx-large;
 }
-
-.nav-list {
-  list-style: none;
+h2 {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
-.nav-list li {
-  list-style: none;
-  display: inline-block;
-
-  padding-left: 400px;
+h1 {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  margin-bottom: 3%;
 }
 
-.nav {
-  flex: 1;
-  padding-left: 400px;
-}
 .user-search {
   padding: 20px;
   height: 500px;
@@ -49,12 +61,57 @@ td {
 .cont {
   max-width: 100%;
 }
-.myCourses {
-}
 
 footer {
   height: 200px;
   background: #333;
   color: #fff;
   padding-top: 40px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+tr {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  display: grid;
+  grid-template-columns: 7fr 4fr 7fr 4fr;
+  margin-bottom: 1%;
+  margin-top: 6%;
+  font-size: medium;
+}
+td {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+.searchCourse {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: center;
+  margin-bottom: 1%;
+}
+
+#searchCourse {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 1rem;
+  margin-left: 7%;
+  border-radius: 4px;
+}
+
+.search-btn {
+  margin-left: 40%;
+  font-size: 1.25rem;
+  border-radius: 1%;
+}
+
+.search-btn:hover {
+  cursor: pointer;
+}
+
+#searchButton {
+  font-size: large;
+}
+.course {
+  margin-top: 2%;
 }

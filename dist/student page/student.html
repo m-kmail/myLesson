@@ -1,80 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
-    <link href="./fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link href="./fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
 
     <title>Document</title>
-</head>
+  </head>
 
-<body>   
+  <body>
+    <div class="header">
+      <div class="title">My Lessons</div>
 
-    <nav id="global-nav" class="nav">
-        <div >
-          <div><h1 class="site-title">My Lessons</div>
-        </div>
-        <ul class="nav-list">
-            <li id="name">name</li>   
-          </ul>
-      
-    </nav>
+      <div id="name">name</div>
+    </div>
 
-      <div class="studentInfo">
-        <div class="con">
-          
-            <h2>my courses</h2>
-            <table class="myCorsess">
-              <th > name</th>
-              <th > time</th>
+    <div class="studentInfo">
+      <div class="con">
+        <h2>my courses</h2>
 
-              <th > teacher</th>
-              <th > <i class="fa-solid fa-minus"></i> remove course</th>
-
-                   
-                 
-                </table>
-          
-        </div>
+        <table class="myCorsess">
+          <th>name</th>
+          <th>time</th>
+          <th>teacher</th>
+        </table>
       </div>
-      
-      <div class="user-search">
-        <div class="container">
-          
-            <h1>looking for new courses!</h1>
+    </div>
 
-            
-              <div> <input id="searchCourse" placeholder="Write the course Name">
-               
-                <button onclick="" class="fa fa-search"></button></div> 
-                 <br>
-                <table class="searchedCourses">
-                 <th >
-                     <td >name</td>
-                     <td >time</td>
-                     <td >teacher</td>
-                   <td ><i class="fa-solid fa-plus"></i>add</td>
-                   </th>
-                 </table>
-                  </div>
-         </div>
-        
+    <div class="user-search">
+      <div class="container">
+        <h1>looking for new courses!</h1>
 
-      
+        <div class="searchCourse">
+          <input id="searchCourse" placeholder="Write the course Name" />
+          <i class="fa fa-search search-btn"></i>
+        </div>
+        <br />
+        <table class="searchedCourses">
+          <th>name</th>
+          <th>time</th>
 
+          <th>teacher</th>
+        </table>
+      </div>
+    </div>
 
-                  <footer>
-                    <div >
-                      <p>Footer area</p>
-                    </div>
-                  </footer>
-              
-
-
-                </body>
-                <script src="../../node_modules/jquery/dist/jquery.js"></script>
-<script src="Render Student.js"></script>
+    <footer>
+      <div>
+        <p>Footer area</p>
+      </div>
+    </footer>
+  </body>
+  <script src="../../node_modules/jquery/dist/jquery.js"></script>
+  <script src="Render Student.js"></script>
 </html>

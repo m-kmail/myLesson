@@ -87,3 +87,4 @@ let courses = [
   },
 ];
 fillCourses(courses, "minus");
+fillCourses(courses, "sda");
