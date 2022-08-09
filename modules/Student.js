@@ -5,7 +5,7 @@ const studentSchema = new Schema({
   name: String,
   email: String,
   password: String,
-  course: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+  courses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
 });
 const Student = mongoose.model("Student", studentSchema);
 module.exports = Student;

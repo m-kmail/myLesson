@@ -10,7 +10,57 @@
 </head>
 
 <body>
+ <div class="container">
+ 
+    <div class="button-box">
+              <div id="btn"></div>
+               <button type="button" class="toggle-btn" id="lgin" onclick="tologin()">Log In</button>
+               <button type="button" class="toggle-btn" id="rgs" onclick="toreg()">Register</button>
+    </div>
+           
+ 	<div class="main">
+ 	    <div id="login">
+ 		   <h1>Login</h1>
+           <div class="Error"></div>
+ 			<span>
+ 				<i class="fa fa-envelope"></i>
+ 				<input type="text" placeholder="email" class="email" required>
+ 			</span>
+ 			<br>
+ 			<span>
+ 			    <i class="fa fa-lock"></i>
+ 				<input type="password" placeholder="password" class="pass" required>
+ 			 </span><br>
+ 				<button class="loginbtn">login</button>
+ 	</div>
+            
+ 	<div id="register" class="hidden">
+    <div class="Error"></div>
+ 		<h1>Register</h1>
+ 		<span>
+ 			<i class="fa fa-envelope"></i>
+ 			    <input type="text" placeholder="email" class="email" required>
+ 		</span>
+ 			<br>
+ 			
+ 		<span>
+ 		     <i class="fa fa-user"></i>
+ 			 <input type="text" placeholder="Name" class="name" required>
+ 		</span>
+ 			<br>
+ 		<span>
+ 		     <i class="fa fa-lock"></i>
+ 			 <input type="password" placeholder="password" class="pass" required>
+ 			</span><br>
 
+        <div class="radio">
+ 		 <input type="radio" id="student" name="prefession" value="student" class="singleRadio" required>
+         <p class="radioText">Student</p><br>
+         <input type="radio" id="teacher" name="prefession" value="teacher" class="singleRadio">
+         <p class="radioText">Teacher</p><br>
+        </div>
+ 			<button class="regbtn">Register</button>
+ 	</div>
  		
 
         
