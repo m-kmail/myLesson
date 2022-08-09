@@ -9,8 +9,17 @@
     <link href="./fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
 
     <title>Document</title>
+    <script src="../../../node_modules/handlebars/dist/handlebars.min.js"></script>
   </head>
+  <script id="handlebars-demo" type="text/x-handlebars-template">
+    <tr class="course">
 
+      <td id="course-name">{{courseName}}</td>
+      <td id="course-time">{{courseTime}}</td>
+      <td id="course-teacher">{{teacher}}</td>
+      <td class="${classButton}"><i class="fa-solid {{classIcon}}"></i></td>
+    </tr>
+  </script>
   <body>
     <div class="header">
       <div class="title">My Lessons</div>
@@ -54,6 +63,6 @@
       </div>
     </footer>
   </body>
-  <script src="../../node_modules/jquery/dist/jquery.js"></script>
+  <script src="../../../node_modules/jquery/dist/jquery.js"></script>
   <script src="Render Student.js"></script>
 </html>
