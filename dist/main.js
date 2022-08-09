@@ -1,7 +1,4 @@
 //const render = new Renderer();
-
-const bodyParser = require("body-parser");
-
 const logEmailField = $("#login").find(".email");
 const logPassField = $("#login").find(".pass");
 const ErrorDiv = $(".Error");
@@ -37,6 +34,7 @@ const validEmail = function (email) {
 };
 
 $(".loginbtn").on("click", function () {
+  console.log("a");
   const email = logEmailField.val();
   const pass = logPassField.val();
 
@@ -56,6 +54,11 @@ $(".loginbtn").on("click", function () {
           ErrorDiv.show();
           ErrorDiv.append(`<p>Invalid Password</p>`);
         } else {
+          let thisUser = {
+            email: email,
+          };
+          thisUser = JSON.stringify(thisUser);
+          localStorage.setItem("userInfo", thisUser);
           //render => if student ===> go to student page
           // if teacher => render to go to teacher page
           ErrorDiv.empty();
@@ -118,19 +121,37 @@ $(".regbtn").on("click", function () {
   });
 });
 
-const getStudentCourses = function (userEmail) {
+const getStudentCourses = function () {
+  const userEmail = Json.parse(localStorage.getItem("userInfo")).email;
   $.get(`/courses/${userEmail}`, function (courses) {
     //render.renderCoursesForStudent(courses);
   });
 
   $("body").on("click", ".removeCourse", function (userEmail) {
-    const courseTime = $(this).closest(".course").find(".course-time").text;
+    const courseId = $(this).closest(".course").find(".hidden").attr.data; //maybe it'll need a fix
+    if (confirm("are you sure to delete this corse")) {
+      $.ajax({
+        method: "Delete",
+        url: `/courses/${userEmail}/${courseId}`,
+        success: function () {
+          //render the page again
+        },
+      });
+    }
+  });
 
+  $("body").on("click", ".addCourse", function () {
+    let courseId = $(this).closest(".course").find(".hidden").attr.data;
+    const userEmail = Json.parse(localStorage.getItem("userInfo")).email;
     $.ajax({
-      method: "Delete",
-      url: `/courses/${userEmail}/${courseTime}`,
+      method: "PUT",
+      url: "/courses",
+      data: {
+        courseId: courseId,
+        studentEmail: userEmail,
+      },
       success: function () {
-        //render the page again
+        //render
       },
     });
   });
