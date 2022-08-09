@@ -37,10 +37,11 @@ const student = [
     email: "ahmad@student.com",
   },
 ];
-
+let name = "Mohammad Kamel";
 function fillName(name) {
   $("#name").text(name);
 }
+fillName(name);
 {
   /* <table class="mycourses">
 <tr class="course">
