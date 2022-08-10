@@ -14,7 +14,6 @@ class StudentRendere {
       classButton = "addCourse";
       classIcon = "fa-plus";
       mainClassName = ".searchedCourses";
-      console.log(mainClassName);
     }
     var template = $("#handlebars-demo").html();
 
