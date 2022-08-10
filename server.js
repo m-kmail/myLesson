@@ -9,7 +9,7 @@ const port = 3000;
 const path = require("path");
 const api = require("./server/routes/api");
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "dist/login")));
 app.use(express.static(path.join(__dirname, "node_modules")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", api);

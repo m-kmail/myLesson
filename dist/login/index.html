@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>undefind</title>
+<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+ <div class="container">
+ 
+    <div class="button-box">
+              <div id="btn"></div>
+               <button type="button" class="toggle-btn" id="lgin" onclick="tologin()">Log In</button>
+               <button type="button" class="toggle-btn" id="rgs" onclick="toreg()">Register</button>
+    </div>
+ 	<div class="main">
+ 	    <div id="login">
+ 		   <h1>Login</h1>
+           <div class="Error"></div>
+ 			<span>
+ 				<i class="fa fa-envelope"></i>
+ 				<input type="text" placeholder="email" class="email" required>
+ 			</span>
+ 			<br>
+ 			<span>
+ 			    <i class="fa fa-lock"></i>
+ 				<input type="password" placeholder="password" class="pass" required>
+ 			 </span><br>
+ 				<button class="loginbtn">login</button>
+ 	</div>
+            
+ 	<div id="register" class="hidden">
+    <div class="Error"></div>
+ 		<h1>Register</h1>
+ 		<span>
+ 			<i class="fa fa-envelope"></i>
+ 			    <input type="text" placeholder="email" class="email" required>
+ 		</span>
+ 			<br>
+ 			
+ 		<span>
+ 		     <i class="fa fa-user"></i>
+ 			 <input type="text" placeholder="Name" class="name" required>
+ 		</span>
+ 			<br>
+ 		<span>
+ 		     <i class="fa fa-lock"></i>
+ 			 <input type="password" placeholder="password" class="pass" required>
+ 			</span><br>
+
+        <div class="radio">
+ 		 <input type="radio" id="student" name="prefession" value="student" class="singleRadio" required>
+         <p class="radioText">Student</p><br>
+         <input type="radio" id="teacher" name="prefession" value="teacher" class="singleRadio">
+         <p class="radioText">Teacher</p><br>
+        </div>
+ 			<button class="regbtn">Register</button>
+ 	</div>
+ 		
+
+        
+   
+
+<script src="./handlebars/dist/handlebars.min.js"></script>
+<script src="./jquery/dist/jquery.js"></script>
+<script src="Renderer.js"></script>
+<script src="model.js"></script>
+<script src="main.js"></script>
+</body>
+
+</html>
