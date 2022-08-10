@@ -1,4 +1,3 @@
-//const render = new Renderer();
 const model = new Model();
 const renderer = new Renderer();
 const courseName = $("#searchCourse");
