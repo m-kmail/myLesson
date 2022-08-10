@@ -4,19 +4,37 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" media="screen" href="teacherstyle.css" />
-
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="teacherstyle.css"
+    />
     <title>Teacher Page</title>
   </head>
   <body>
-    <div class="teacherName"></div>
+    <div class="outer">
+      <div class="header">
+        <h3 class="teacherName"></h3>
+        <h1 class="title">My Lessons</h1>
+      </div>
+    </div>
 
-    <table class="courses">
-      <th>Name</th>
-      <th>Time</th>
-      <th>No Of Student</th>
-    </table>
-    <div class="namesOfStudent">
+    <div class="add">
+      <input type="text" id="addField" placeholder="write course name!" />
+      <input type="time" name="Time" id="timeOfCourse" />
+      <input type="button" value="Add" id="buttonAdd" />
+    </div>
+    <div class="beside">
+      <table class="courses">
+        <th>Name</th>
+        <th>Time</th>
+        <th>No Of Student</th>
+        <th></th>
+      </table>
+
+      <div class="namesOfStudent"><h3>Student names will Appers here!!</h3></div>
+      </div>
       <script id="handlebars" type="text/x-handlebars-template">
         <tr class="Info"><td class="name">{{name}}</td>
           <td>{{startTime}}</td>
@@ -26,12 +44,8 @@
             ></i></td></tr>
       </script>
     </div>
-    <div class="add">
-      <input type="text" id="addField" />
-      <input type="time" name="Time" id="timeOfCourse" />
-      <input type="button" value="Add" id="buttonAdd" />
-    </div>
   </body>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
   <script
     src="https://code.jquery.com/jquery-3.6.0.js"

@@ -30,7 +30,8 @@ $(".courses").on("click", ".serach", function () {
     let courseName = $(this).closest(".Info").find(".name").text();
     for (i of courses)
       if (i.name == courseName) {
-        for (let j of i.students) $(".namesOfStudent").append(j + " ");
+        for (let j of i.students)
+          $(".namesOfStudent").append("<h4>" + j + "</h4>");
       }
   }
 });
