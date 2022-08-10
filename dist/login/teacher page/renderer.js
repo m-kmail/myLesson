@@ -24,7 +24,7 @@ class Render {
 let R = new Render();
 R.renderTheTeacherCourses(courses);
 R.fillTeacherName("Ahmad Salous");
-$(".courses").on("click", ".serach", function () {
+$(".courses").on("click", ".fa-magnifying-glass", function () {
   {
     $(".namesOfStudent").empty();
     let courseName = $(this).closest(".Info").find(".name").text();
