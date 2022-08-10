@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" media="screen" href="teacherStyle.css"/>
+      <link href="./fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
+    <title>Teacher Page</title>
+  </head>
+  <body>
+    <script id="handlebars" type="text/x-handlebars-template">
+        <tr class="Info"><td class="name">{{name}}</td>
+            <td>{{startTime}}</td>
+            <td> {{length}}</td>
+            <td class="serach"><i class="fa-solid fa-magnifying-glass"></i></td></tr>
+    </script>
+    <div class="header">
+        <h3 class="teacherName">izzat</h3>
+        <h1 class="title">My Lessons</h1>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="table">
+                <table class="courses">
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>No Of Student</th>
+                    <th>button</th>
+                    <tbody>
+                        <tr>
+                       
+                            <td class="">
+                                button
+                                </td>
+                                <td class="">
+                                    button
+                                </td>
+                                <td class="">
+                                    button
+                                </td>
+                                 <td class="buttons">
+                            <button class="view"> <i class="fa-solid fa-magnifying-glass"></i></button>
+                            <button class="remove"><i class="fa-solid fa-trash-can"></i></button>
+                            </td>
+                                </tr>
+                                <tr>
+                                    
+                                        <td class="">
+                                            button
+                                            </td>
+                                            <td class="">
+                                                button
+                                            </td>
+                                            <td class="">
+                                                button
+                                            </td>
+                                            <td class="buttons">
+                                        <button class="view"> <i class="fa-solid fa-magnifying-glass"></i></button>
+                                        <button class="remove"><i class="fa-solid fa-trash-can"></i></button>
+                                        </td>
+                                </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div class="add">
+            <input type="text" id="addField" placeholder="write course name!" />
+            <input type="time" required step="3600" name="Time" id="timeOfCourse" />
+            <button id="buttonAdd">Add</button>
+        </div>
+    </div>
+    <div class="namesOfStudent"><h3>Student names will Appers here!!</h3></div>
+</div>
+</body>
+<script src="./handlebars/dist/handlebars.min.js"></script>
+<script src="./jquery/dist/jquery.js"></script>
+<script src="model.js"></script>
+<script src="render.js"></script>
+<script src="main.js"></script>
+</html>

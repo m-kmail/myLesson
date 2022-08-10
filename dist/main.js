@@ -1,4 +1,3 @@
-//const render = new Renderer();
 const model = new Model();
 const renderer = new Renderer();
 const courseName = $("#searchCourse");
@@ -62,6 +61,7 @@ const getAvailableCourses = function () {
 };
 
 $("body").on("click", ".searchButton", async function () {
+  console.log("ss");
   getAvailableCourses();
 });
 
@@ -148,7 +148,7 @@ $("body").on("click", ".addCourseBTN", function () {
 
 $("body").on("click", ".removeCourseBTN", async function () {
   const userEmail = JSON.parse(localStorage.getItem("userInfo")).email;
-  const courseId = $(this).closest("tr").find(".hidden").text(); //maybe it'll need a fix
+  const courseId = $(this).closest("tr").find(".hidden").text();
 
   if (confirm("are you sure to delete this corse")) {
     let x = model.removeCourse(userEmail, courseId);
@@ -157,6 +157,8 @@ $("body").on("click", ".removeCourseBTN", async function () {
       courses.then(function (coursesFromDB) {
         console.log(coursesFromDB);
         renderer.fillCourses(coursesFromDB, "minus");
+        searchContainer.empty();
+        getAvailableCourses();
       });
     });
   }

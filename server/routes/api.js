@@ -57,45 +57,6 @@ router.post("/addUser", function (request, response) {
   } else response.send("invalid email");
 });
 
-router.get("/courses/:studentEmail", function (request, response) {
-  const studentEmail = request.params.studentEmail;
-  allStudents
-    .findOne({ email: studentEmail })
-    .populate("courses")
-    .exec(function (err, students) {
-      let coursesToStudent = [];
-      students.courses.forEach((course) => {
-        let newObj = {
-          id: course._id,
-          name: course.name,
-          startTime: course.startTime,
-          available: course.available,
-        };
-        coursesToStudent.push(newObj);
-      });
-      response.send(coursesToStudent);
-    });
-});
-
-router.delete("/courses/:studentEmail/:courseId", function (request, response) {
-  const studentEmail = request.params.studentEmail;
-  const courseId = request.params.courseId;
-  let index = 0;
-  allStudents
-    .findOne({ email: studentEmail })
-    .populate("courses")
-    .exec(function (err, student) {
-      student.courses.forEach((c) => {
-        if (courseId == c._id) {
-          student.courses.splice(index, 1);
-          student.save();
-          response.send(student.courses);
-        }
-        index++;
-      });
-    });
-});
-
 router.put("/courses", function (request, response) {
   const courseToAdd = request.body.courseId;
   const userEmail = request.body.userEmail;
@@ -120,66 +81,101 @@ router.get("/courses", function (request, response) {
     });
   }
 });
+router.delete("/courses/:userEmail/:courseId", function (request, response) {
+  const userEmail = request.params.userEmail;
+  const courseId = request.params.courseId;
+  if (userEmail.includes("@student.com")) {
+    let index = 0;
+    allStudents
+      .findOne({ email: userEmail })
+      .populate("courses")
+      .exec(function (err, student) {
+        student.courses.forEach((c) => {
+          if (courseId == c._id) {
+            student.courses.splice(index, 1);
+            student.save();
+          }
+          index++;
+        });
+        response.send(student.courses);
+      });
+  }
+  if (userEmail.includes("@teacher.com")) {
+    let index = 0;
+    allTeachers
+      .findOne({ email: userEmail })
+      .populate("courses")
+      .exec(function (err, teacher) {
+        teacher.courses.forEach((c) => {
+          if (courseId == c._id) {
+            teacher.courses.splice(index, 1);
+            teacher.save();
+          }
+          index++;
+        });
+        response.send(teacher.courses);
+      });
+  }
+});
 
-// router.get("/tests", function (request, response) {
-//   const s1 = new allStudents({
-//     name: "s1",
-//     email: "s1@student.com",
-//     pass: "aa",
-//     courses: [],
-//   });
-//   const s2 = new allStudents({
-//     name: "s2",
-//     email: "s2@student.com",
-//     pass: "aa",
-//     courses: [],
-//   });
-//   const s3 = new allStudents({
-//     name: "s3",
-//     email: "s3@student.com",
-//     pass: "aa",
-//     courses: [],
-//   });
-//   const s4 = new allStudents({
-//     name: "s4",
-//     email: "s4@student.com",
-//     pass: "aa",
-//     courses: [],
-//   });
-//   const s5 = new allStudents({
-//     name: "s5",
-//     email: "s5@student.com",
-//     pass: "aa",
-//     courses: [],
-//   });
-//   const c1 = new allCourses({
-//     name: "arabic",
-//     startTime: 1,
-//     available: true,
-//   });
-//   const c2 = new allCourses({
-//     name: "english",
-//     startTime: 2,
-//     available: true,
-//   });
-//   const c3 = new allCourses({
-//     name: "french",
-//     startTime: 2,
-//     available: true,
-//   });
-//   s1.courses.push(c1);
-//   s2.courses.push(c1);
-//   s3.courses.push(c1);
-//   s3.courses.push(c2);
-//   c1.save();
-//   c2.save();
-//   c3.save();
-//   s1.save();
-//   s2.save();
-//   s3.save();
-//   s4.save();
-//   s5.save();
-//   response.send(allStudents.find({}));
-// });
+router.get("/courses/:userEmail", function (request, response) {
+  const userEmail = request.params.userEmail;
+  if (userEmail.includes("@student.com")) {
+    allStudents
+      .findOne({ email: userEmail })
+      .populate("courses")
+      .exec(function (err, student) {
+        let coursesToStudent = [];
+        if (student) {
+          student.courses.forEach((course) => {
+            let newObj = {
+              id: course._id,
+              name: course.name,
+              startTime: course.startTime,
+              available: course.available,
+            };
+            coursesToStudent.push(newObj);
+          });
+        }
+        response.send(coursesToStudent);
+      });
+  }
+  if (userEmail.includes("@teacher.com")) {
+    allTeachers
+      .findOne({ email: userEmail })
+      .populate("courses")
+      .exec(function (err, teacher) {
+        let coursesToTeacher = [];
+        if (teacher) {
+          teacher.courses.forEach((course) => {
+            let newObj = {
+              id: course._id,
+              name: course.name,
+              startTime: course.startTime,
+              available: course.available,
+            };
+            coursesToTeacher.push(newObj);
+          });
+        }
+        response.send(coursesToTeacher);
+      });
+  }
+});
+
+router.post("/courses/:teacherEmail", function (request, response) {
+  const teacherEmail = request.params.teacherEmail;
+  const courseBody = request.body;
+  let newCourse = new allCourses({
+    name: courseBody.name,
+    startTime: courseBody.startTime,
+    available: true,
+  });
+  newCourse.save();
+  allTeachers.findOne({ email: teacherEmail }).exec(function (error, teacher) {
+    teacher.courses.push(newCourse);
+    teacher.save();
+  });
+  response.end();
+});
 
 module.exports = router;
