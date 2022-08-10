@@ -59,18 +59,21 @@ router.post("/addUser", function (request, response) {
 
 router.get("/courses/:studentEmail", function (request, response) {
   const studentEmail = request.params.studentEmail;
-  allStudents.findOne({ email: studentEmail }).exec(function (err, student) {
-    response.send(student.courses);
-  });
-});
-
-router.get("/courses/:studentEmail", function (request, response) {
-  const studentEmail = request.params.studentEmail;
   allStudents
     .findOne({ email: studentEmail })
     .populate("courses")
     .exec(function (err, students) {
-      response.send(students.courses);
+      let coursesToStudent = [];
+      students.courses.forEach((course) => {
+        let newObj = {
+          id: course._id,
+          name: course.name,
+          startTime: course.startTime,
+          available: course.available,
+        };
+        coursesToStudent.push(newObj);
+      });
+      response.send(coursesToStudent);
     });
 });
 
@@ -86,23 +89,36 @@ router.delete("/courses/:studentEmail/:courseId", function (request, response) {
         if (courseId == c._id) {
           student.courses.splice(index, 1);
           student.save();
+          response.send(student.courses);
         }
         index++;
       });
-      response.send(student.courses);
     });
 });
 
 router.put("/courses", function (request, response) {
   const courseToAdd = request.body.courseId;
-  const studentEmail = request.body.studentEmail;
-  allStudents.findOne({ email: studentEmail }).exec(function (err, student) {
+  const userEmail = request.body.userEmail;
+  allStudents.findOne({ email: userEmail }).exec(function (err, student) {
     allCourses.findOne({ _id: courseToAdd }).exec(function (err, course) {
       student.courses.push(course);
       student.save();
       response.end();
     });
   });
+});
+
+router.get("/courses", function (request, response) {
+  const courseName = request.query.courseName;
+  if (courseName == undefined) {
+    allCourses.find({}).exec(function (err, coursesResult) {
+      response.send(coursesResult);
+    });
+  } else {
+    allCourses.find({ name: courseName }).exec(function (err, coursesResult) {
+      response.send(coursesResult);
+    });
+  }
 });
 
 // router.get("/tests", function (request, response) {
