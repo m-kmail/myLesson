@@ -2,17 +2,6 @@ class Renderer {
   constructor() {}
   fillCourses(courses, buttonType, oldCourses) {
     let mainClassName;
-    /*
-    if (buttonType == "minus") {
-      classButton = "removeCourse";
-      classIcon = "fa-minus";
-      mainClassName = ".myCorsess";
-    } else {
-      classButton = "addCourse";
-      classIcon = "fa-plus";
-      mainClassName = ".searchedCourses";
-    }
-    */
 
     if (buttonType == "minus") {
       for (let c of courses) {

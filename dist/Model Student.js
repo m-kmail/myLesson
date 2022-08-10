@@ -7,9 +7,10 @@ class Model {
 
   getCourseByName(courseName) {
     let p;
-    if (courseName)
+    if (courseName) {
+      console.log(courseName);
       p = $.get(`/courses?courseName=${courseName}`, function (courses) {});
-    else p = $.get(`/courses`, function (courses) {});
+    } else p = $.get(`/courses`, function (courses) {});
     return p;
   }
 
