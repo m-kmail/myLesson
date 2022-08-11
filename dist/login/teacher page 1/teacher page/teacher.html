@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" media="screen" href="teacherstyle.css" />
+    <title>Teacher Page</title>
+  </head>
+  <body>
+    <div class="header">
+      <h3  class="teacherName">name</h3>
+    <h1 class="title">My Lessons</h1>
+  </div>
+
+
+  <div class="add">
+    <input type="text" id="addField"   placeholder="write course start time" />
+    <input type="time" name="Time" id="timeOfCourse" />
+    <input type="button" value="Add" id="buttonAdd" />
+  </div> 
+    <table class="courses">
+      <th>Name</th>
+      <th>Time</th>
+      <th>No Of Student</th>
+    </table>
+    <div class="namesOfStudent">
+      <script id="handlebars" type="text/x-handlebars-template">
+        <tr class="Info"><td class="name">{{name}}</td>
+          <td>{{startTime}}</td>
+          <td> {{length}}</td>
+          <td class="serach"><i
+              class="fa-solid fa-magnifying-glass"
+            ></i></td></tr>
+      </script>
+    </div>
+
+
+    
+  </body>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="data.js"></script>
+  <script src="renderer.js"></script>
+  <script src="controller.js"></script>
+  <link href="./fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
+</html>
