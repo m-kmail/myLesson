@@ -87,9 +87,12 @@ router.put("/courses", function (request, response) {
 router.get("/courses", function (request, response) {
   const courseName = request.query.courseName;
   if (courseName == undefined) {
-    allCourses.find({}).exec(function (err, coursesResult) {
-      response.send(coursesResult);
-    });
+    allCourses
+      .find({})
+      .populate("teacher")
+      .exec(function (err, coursesResult) {
+        response.send(coursesResult);
+      });
   } else {
     allCourses.find({ name: courseName }).exec(function (err, coursesResult) {
       response.send(coursesResult);
@@ -146,7 +149,12 @@ router.get("/courses/:userEmail", function (request, response) {
   if (userEmail.includes("@student.com")) {
     allStudents
       .findOne({ email: userEmail })
-      .populate("courses")
+      .populate({
+        path: "courses",
+        populate: {
+          path: "teacher",
+        },
+      })
       .exec(function (err, student) {
         let coursesToStudent = [];
         if (student) {
@@ -157,6 +165,7 @@ router.get("/courses/:userEmail", function (request, response) {
               startTime: course.startTime,
               available: course.available,
               length: course.length,
+              teacher: course.teacher.name,
             };
             coursesToStudent.push(newObj);
           });
@@ -189,8 +198,8 @@ router.get("/courses/:userEmail", function (request, response) {
 
 router.post("/courses/:teacherEmail", async function (request, response) {
   const teacherEmail = request.params.teacherEmail;
+
   const courseBody = request.body;
-  let teacherName;
   allTeachers.findOne({ email: teacherEmail }).exec(function (err, t) {
     let newCourse = new allCourses({
       name: courseBody.name,

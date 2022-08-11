@@ -50,6 +50,7 @@ const getAvailableCourses = function () {
         id: c._id,
         length: c.length,
         minus: false,
+        teacher: c.teacher.name,
       };
       coursesFromSearch.push(newCorse);
     }
