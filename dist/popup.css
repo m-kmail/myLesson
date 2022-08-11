@@ -1,0 +1,43 @@
+
+.popUp {
+   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  width: 40%;
+  background: #fff;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 0 2% 2%;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+  border: 2px solid black;
+ 
+}
+.openPopUp {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.popUp h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 2% 0 2%;
+}
+.popUp button {
+  width: 30%;
+  margin-left:20px ;
+  margin-right:20px ;
+  margin-top: 5%;
+  padding: 2% 0 2%;
+  background-color: #6f6f6f;
+  color: #fff;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1% 1% rgba(0, 0, 0, 0.2);
+}

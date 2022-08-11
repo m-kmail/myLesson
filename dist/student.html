@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="Studentstyle.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="popup.css" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -71,6 +72,15 @@
           <tbody  class="searchedCourses"></tbody>
         </table>
     </div>
+
+ <div class="popUp" id="popUp">
+        <img src="./question_mark_PNG120.png" alt="" />
+        <h2>Are you sure to delete this course ?</h2>
+        <button class="Yes" type="button" onclick="closePopUp()">YES,DELETE</button>
+        <button class="No" type="button" onclick="closePopUp()">NO,Keep it</button>
+  </div>
+   
+
 
   </body>
 <script src="./handlebars/dist/handlebars.min.js"></script>

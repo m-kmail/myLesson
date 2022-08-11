@@ -152,24 +152,9 @@ $("body").on("click", ".addCourseBTN", function () {
 });
 
 $("body").on("click", ".removeCourseBTN", async function () {
-  const userEmail = JSON.parse(localStorage.getItem("userInfo")).email;
   const courseId = $(this).closest("tr").find(".hidden").text();
 
-  if (confirm("are you sure to delete this corse")) {
-    let x = model.removeCourse(userEmail, courseId);
-    x.then(function () {
-      let courses = model.getCoursesFromDB(userEmail);
-      courses.then(function (coursesFromDB) {
-        //renderer.fillCourses(coursesFromSearch, "plus", coursesFromDB);
-        renderer.fillCourses(coursesFromDB, " ");
-        renderer.fillCourses(coursesFromDB, "minus");
-        // renderer.fillCourses(coursesFromDB, "plus", []);
-        if (userEmail.includes("@student.com")) {
-          searchContainer.empty();
-          getAvailableCourses();
-        }
-      });
-    });
+  if (ok(courseId)) {
   }
 });
 
@@ -202,3 +187,33 @@ const loadContent = async function () {
   await getStudentCourses();
   renderer.displayName();
 };
+function openPopUp(courseId) {
+  $("#popUp").addClass("openPopUp");
+  $("#popup").attr.data = courseId;
+}
+closePopUp = () => {
+  $("#popUp").removeClass("openPopUp");
+};
+
+$("body").on("click", ".Yes", async function () {
+  courseId = $("#popup").attr.data;
+  const userEmail = JSON.parse(localStorage.getItem("userInfo")).email;
+  let x = model.removeCourse(userEmail, courseId);
+  x.then(function () {
+    let courses = model.getCoursesFromDB(userEmail);
+    courses.then(function (coursesFromDB) {
+      //renderer.fillCourses(coursesFromSearch, "plus", coursesFromDB);
+      renderer.fillCourses(coursesFromDB, " ");
+      renderer.fillCourses(coursesFromDB, "minus");
+      // renderer.fillCourses(coursesFromDB, "plus", []);
+      if (userEmail.includes("@student.com")) {
+        searchContainer.empty();
+        getAvailableCourses();
+      }
+    });
+  });
+});
+
+function ok(courseId) {
+  openPopUp(courseId);
+}

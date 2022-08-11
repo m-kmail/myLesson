@@ -103,6 +103,7 @@ table tr:last-of-type {
   color: gray;
 }
 .addCourseBTN{
+  
   background-color: transparent;
   border: none;
   font-size: x-large;
