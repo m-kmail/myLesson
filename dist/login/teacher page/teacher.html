@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Teacher Page</title>
+  </head>
+  <body>
+    <div class="teacherName"></div>
+    <table class="teacherCourses">
+      <th>name</th>
+      <th>time</th>
+      <th># of students</th>
+      <th>view student <i class="fa-solid fa-magnifying-glass"></i></th>
+    </table>
+
+    <script id="course-template" type="text/x-handlebars-template">
+      {{#each courses}}
+        <tr>
+          <td class="courseName">{{name}}</td>
+
+          <td class="courseTime">{{startTime}}</td>
+          <td class="courseStudentNums">{{students.length}}</td>
+          <td class="courseViewStudent">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </td>
+        </tr>
+        <tr class="viewedStudent{{name}}"> </tr>
+      {{/each}}
+    </script>
+
+    <script id="studentViewed-template" type="text/x-handlebars-template">
+      {{#each students}}
+        <tr>
+          <td>{{this}}</td>
+        </tr>
+      {{/each}}
+    </script>
+
+    <div>
+      <input id="courseName" placeholder="write course name" type="text" />
+      <input
+        id="courseStartTime"
+        placeholder="write course start time"
+        type="time"
+      />
+      <button class="addCourseBtn">Add Course</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="data.js"></script>
+    <script src="renderer.js"></script>
+    <script src="controller.js"></script>
+    <link href="./fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
+  </body>
+</html>
