@@ -48,6 +48,7 @@ const getAvailableCourses = function () {
         startTime: c.startTime,
         available: c.available,
         id: c._id,
+        length: c.length,
         minus: false,
       };
       coursesFromSearch.push(newCorse);
@@ -61,7 +62,6 @@ const getAvailableCourses = function () {
 };
 
 $("body").on("click", ".searchButton", async function () {
-  console.log("ss");
   getAvailableCourses();
 });
 
@@ -83,7 +83,11 @@ const getStudentCourses = function () {
   let courses = model.getCoursesFromDB(userEmail);
 
   courses.then(function (coursesFromDB) {
-    renderer.fillCourses(coursesFromDB, "minus");
+    if (userEmail.includes("@student.com"))
+      renderer.fillCourses(coursesFromDB, "minus");
+    else {
+      renderer.fillCourses(coursesFromDB, "teacher");
+    }
   });
 };
 
@@ -126,11 +130,11 @@ $(".regbtn").on("click", function () {
   if (type == "teacher") {
     newUser.students = [];
   }
-
+  regEmailField.val("");
+  regName.val("");
+  regPass.val("");
   model.createUser(newUser);
 });
-
-///////////////
 
 $("body").on("click", ".addCourseBTN", function () {
   let courseId = $(this).closest("tr").find(".hidden").text();
@@ -155,15 +159,45 @@ $("body").on("click", ".removeCourseBTN", async function () {
     x.then(function () {
       let courses = model.getCoursesFromDB(userEmail);
       courses.then(function (coursesFromDB) {
-        console.log(coursesFromDB);
+        //renderer.fillCourses(coursesFromSearch, "plus", coursesFromDB);
+        renderer.fillCourses(coursesFromDB, " ");
         renderer.fillCourses(coursesFromDB, "minus");
-        searchContainer.empty();
-        getAvailableCourses();
+        // renderer.fillCourses(coursesFromDB, "plus", []);
+        if (userEmail.includes("@student.com")) {
+          searchContainer.empty();
+          getAvailableCourses();
+        }
       });
     });
   }
 });
 
+$("body").on("click", ".addButton", async function () {
+  const userEmail = JSON.parse(localStorage.getItem("userInfo")).email;
+  const courseName = $(this).closest(".add").find("#addField").val();
+  let startTime = $(this).closest(".add").find("#timeOfCourse").val();
+  startTime = (startTime[0] == "0" ? "" : startTime[0]) + startTime[1];
+
+  let x = model.createNewCourse(userEmail, courseName, startTime);
+
+  x.then(function () {
+    let courses = model.getCoursesFromDB(userEmail);
+    courses.then(function (coursesFromDB) {
+      renderer.fillCourses(coursesFromDB, "teacher");
+    });
+  });
+});
+
+$("body").on("click", ".view", async function () {
+  //const userEmail = JSON.parse(localStorage.getItem("userInfo")).email;
+  const courseId = $(this).closest("tr").find(".hidden").text();
+  x = model.gitStudents(courseId);
+  x.then(function (studentsCourse) {
+    renderer.fillCourses(studentsCourse, "students");
+  });
+});
+
 const loadContent = async function () {
   await getStudentCourses();
+  renderer.displayName();
 };

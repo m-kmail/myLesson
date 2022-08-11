@@ -8,6 +8,7 @@ const courseSchema = new Schema({
   teacher: { type: Schema.Types.ObjectId, ref: "Teacher" },
   startTime: Number,
   available: Boolean,
+  length: Number,
 });
 const Course = mongoose.model("Course", courseSchema);
 

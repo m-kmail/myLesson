@@ -2,31 +2,58 @@ class Renderer {
   constructor() {}
   fillCourses(courses, buttonType, oldCourses) {
     let mainClassName;
-
+    let handlebarsTemplate;
     if (buttonType == "minus") {
+      handlebarsTemplate = $("#courses-template");
       for (let c of courses) {
         c.minus = true;
       }
       mainClassName = ".myCorsess";
     } else {
-      mainClassName = ".searchedCourses";
-      for (let c of courses) {
-        for (let old in oldCourses) {
-          if (
-            c.id == oldCourses[old].id ||
-            c.startTime == oldCourses[old].startTime
-          ) {
-            c.available = false;
-            break;
+      if (buttonType == "plus") {
+        handlebarsTemplate = $("#courses-template");
+        mainClassName = ".searchedCourses";
+        for (let c of courses) {
+          for (let old in oldCourses) {
+            if (
+              c.id == oldCourses[old].id ||
+              c.startTime == oldCourses[old].startTime
+            ) {
+              c.available = false;
+              break;
+            }
+          }
+          c.minus = false;
+        }
+      } else {
+        if (buttonType == "students") {
+          mainClassName = ".namesOfStudent";
+          handlebarsTemplate = $("#studentsHandlebars");
+        } else {
+          if (buttonType == " ") {
+            handlebarsTemplate = $("#courses-template");
+            mainClassName = ".myCorsess";
+          } else {
+            handlebarsTemplate = $("#teacherHandlebars");
+            mainClassName = ".myCorsess";
           }
         }
-        c.minus = false;
       }
     }
     $(mainClassName).empty();
-    const source = $("#courses-template").html();
+    const source = handlebarsTemplate.html();
     const template = Handlebars.compile(source);
     const newHTML = template({ courses });
     $(mainClassName).append(newHTML);
+  }
+
+  displayName() {
+    $(".header").empty();
+    const source = $("#activeUserName").html();
+    const template = Handlebars.compile(source);
+    const newHTML = template({
+      activeUser: JSON.parse(localStorage.getItem("userInfo")).name,
+    });
+    $(".header").append(newHTML);
   }
 }

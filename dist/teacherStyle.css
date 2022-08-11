@@ -5,6 +5,9 @@ body {
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
       background-color: silver;
   }
+  .hidden{
+    display: none;
+  }
   .container{
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -91,12 +94,15 @@ body {
   #timeOfCourse {
     width: 30%;
   }
-  .view, .remove{
-background-color: transparent   ;
-  }
-  .view{
-    color: black
-  }
-  .remove{
-    color: rgb(153, 46, 46);
-  }
+.view,
+.remove {
+  background-color: transparent;
+  font-size: 16px;
+}
+.view {
+  color: black;
+}
+.remove {
+  color: rgb(153, 46, 46);
+  margin-left: 8px;
+}

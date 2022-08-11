@@ -24,6 +24,19 @@ router.get("/user/:userEmail", function (request, response) {
   } else response.send(undefined);
 });
 
+router.get("/students/:courseId", function (request, response) {
+  courseId = request.params.courseId;
+  let studentsCourse = [];
+  allStudents.find({}).exec(function (err, students) {
+    students.forEach((student) => {
+      student.courses.forEach((course) => {
+        if (course == courseId) studentsCourse.push(student);
+      });
+    });
+    response.send(studentsCourse);
+  });
+});
+
 router.post("/addUser", function (request, response) {
   const userInfo = request.body;
   if (userInfo.email.includes("@student.com")) {
@@ -62,7 +75,9 @@ router.put("/courses", function (request, response) {
   const userEmail = request.body.userEmail;
   allStudents.findOne({ email: userEmail }).exec(function (err, student) {
     allCourses.findOne({ _id: courseToAdd }).exec(function (err, course) {
+      course.length++;
       student.courses.push(course);
+      course.save();
       student.save();
       response.end();
     });
@@ -82,8 +97,12 @@ router.get("/courses", function (request, response) {
   }
 });
 router.delete("/courses/:userEmail/:courseId", function (request, response) {
-  const userEmail = request.params.userEmail;
   const courseId = request.params.courseId;
+  allCourses.findOne({ _id: courseId }).exec(function (err, course) {
+    course.length--;
+    course.save();
+  });
+  const userEmail = request.params.userEmail;
   if (userEmail.includes("@student.com")) {
     let index = 0;
     allStudents
@@ -113,6 +132,9 @@ router.delete("/courses/:userEmail/:courseId", function (request, response) {
           }
           index++;
         });
+        allCourses.findByIdAndDelete({ _id: courseId }, function (err, course) {
+          console.log(course);
+        });
         response.send(teacher.courses);
       });
   }
@@ -120,6 +142,7 @@ router.delete("/courses/:userEmail/:courseId", function (request, response) {
 
 router.get("/courses/:userEmail", function (request, response) {
   const userEmail = request.params.userEmail;
+
   if (userEmail.includes("@student.com")) {
     allStudents
       .findOne({ email: userEmail })
@@ -133,6 +156,7 @@ router.get("/courses/:userEmail", function (request, response) {
               name: course.name,
               startTime: course.startTime,
               available: course.available,
+              length: course.length,
             };
             coursesToStudent.push(newObj);
           });
@@ -153,6 +177,7 @@ router.get("/courses/:userEmail", function (request, response) {
               name: course.name,
               startTime: course.startTime,
               available: course.available,
+              length: course.length,
             };
             coursesToTeacher.push(newObj);
           });
@@ -162,20 +187,38 @@ router.get("/courses/:userEmail", function (request, response) {
   }
 });
 
-router.post("/courses/:teacherEmail", function (request, response) {
+router.post("/courses/:teacherEmail", async function (request, response) {
   const teacherEmail = request.params.teacherEmail;
   const courseBody = request.body;
-  let newCourse = new allCourses({
-    name: courseBody.name,
-    startTime: courseBody.startTime,
-    available: true,
+  let teacherName;
+  allTeachers.findOne({ email: teacherEmail }).exec(function (err, t) {
+    let newCourse = new allCourses({
+      name: courseBody.name,
+      startTime: courseBody.startTime,
+      available: true,
+      length: 0,
+      teacher: t,
+    });
+
+    let ok = true;
+    let p = allTeachers
+      .findOne({ email: teacherEmail })
+      .populate("courses")
+      .exec(function (error, teacher) {
+        teacher.courses.forEach((course) => {
+          if (course.startTime == newCourse.startTime) {
+            ok = false;
+          }
+        });
+        if (ok) {
+          teacher.courses.push(newCourse);
+          teacher.save();
+          newCourse.save();
+        }
+      });
+
+    response.end();
   });
-  newCourse.save();
-  allTeachers.findOne({ email: teacherEmail }).exec(function (error, teacher) {
-    teacher.courses.push(newCourse);
-    teacher.save();
-  });
-  response.end();
 });
 
 module.exports = router;

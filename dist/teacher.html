@@ -8,17 +8,38 @@
       <link href="./fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
     <title>Teacher Page</title>
   </head>
-  <body>
-    <script id="handlebars" type="text/x-handlebars-template">
-        <tr class="Info"><td class="name">{{name}}</td>
+  <body onload="loadContent()">
+
+<script id="studentsHandlebars" type="text/x-handlebars-template">
+<h3>Students</h3>
+{{#each courses}}
+<ul>
+<li>{{name}}</li>
+</ul>
+{{/each}}
+</script>
+    <script id="teacherHandlebars" type="text/x-handlebars-template">
+    {{#each courses}}
+        <tr class="teacherInfo"><td class="name">{{name}}</td>
             <td>{{startTime}}</td>
             <td> {{length}}</td>
-            <td class="serach"><i class="fa-solid fa-magnifying-glass"></i></td></tr>
+            <td class="buttons">
+            <button class="view"> <i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="remove removeCourseBTN"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+            <td class="hidden">{{id}}</td>
+            {{/each}}
     </script>
-    <div class="header">
-        <h3 class="teacherName">izzat</h3>
+
+        <script id="activeUserName" type="text/x-handlebars-template">
+        <h3 class="teacherName">{{activeUser}}</h3>
         <h1 class="title">My Lessons</h1>
+        </script>
+
+        <div class="header">
+
     </div>
+
     <div class="container">
         <div class="content">
             <div class="table">
@@ -27,46 +48,15 @@
                     <th>Time</th>
                     <th>No Of Student</th>
                     <th>button</th>
-                    <tbody>
-                        <tr>
+                    <tbody class="myCorsess">
                        
-                            <td class="">
-                                button
-                                </td>
-                                <td class="">
-                                    button
-                                </td>
-                                <td class="">
-                                    button
-                                </td>
-                                 <td class="buttons">
-                            <button class="view"> <i class="fa-solid fa-magnifying-glass"></i></button>
-                            <button class="remove"><i class="fa-solid fa-trash-can"></i></button>
-                            </td>
-                                </tr>
-                                <tr>
-                                    
-                                        <td class="">
-                                            button
-                                            </td>
-                                            <td class="">
-                                                button
-                                            </td>
-                                            <td class="">
-                                                button
-                                            </td>
-                                            <td class="buttons">
-                                        <button class="view"> <i class="fa-solid fa-magnifying-glass"></i></button>
-                                        <button class="remove"><i class="fa-solid fa-trash-can"></i></button>
-                                        </td>
-                                </tr>
                     </tbody>
                 </table>
             </div>
         <div class="add">
             <input type="text" id="addField" placeholder="write course name!" />
             <input type="time" required step="3600" name="Time" id="timeOfCourse" />
-            <button id="buttonAdd">Add</button>
+            <button class="addButton">Add</button>
         </div>
     </div>
     <div class="namesOfStudent"><h3>Student names will Appers here!!</h3></div>

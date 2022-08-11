@@ -29,13 +29,12 @@ class Model {
     $.post("/addUser", newUser, function (result) {
       if (result == "") {
         ErrorDiv.empty();
+        ErrorDiv.show();
+        ErrorDiv.append(`<p style="color:green">Done...go to login</p>`);
       } else {
         ErrorDiv.empty();
         ErrorDiv.show();
         ErrorDiv.append(`<p>${result}</p>`);
-        regEmailField.val("");
-        regName.val("");
-        regPass.val("");
       }
     });
   }
@@ -54,7 +53,9 @@ class Model {
         } else {
           let thisUser = {
             email: email,
+            name: user.name,
           };
+
           thisUser = JSON.stringify(thisUser);
           localStorage.setItem("userInfo", thisUser);
           this.ErrorDiv.empty();
@@ -93,6 +94,25 @@ class Model {
       },
     });
 
+    return p;
+  }
+
+  createNewCourse(userEmail, courseName, startTime) {
+    let p = $.ajax({
+      method: "POST",
+      url: `/courses/${userEmail}`,
+      data: { startTime: startTime, name: courseName },
+      success: function () {},
+    });
+    return p;
+  }
+
+  gitStudents(courseId) {
+    let p = $.ajax({
+      method: "GET",
+      url: `/students/${courseId}`,
+      success: function () {},
+    });
     return p;
   }
 
