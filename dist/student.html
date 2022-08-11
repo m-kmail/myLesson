@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="Studentstyle.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  </head>
+
+
+
+  <body onload="loadContent()">
+    <div class="header">
+      <div class="title">My Lessons</div>
+
+      <div id="name">name</div>
+    </div>
+
+        <script id="courses-template" type="text/x-handlebars-template">
+    {{#each courses}}
+    <tr class=".course">
+    <td>{{name}}</td>
+    <td>{{startTime}}</td>
+    <td>{{teacher}}</td>
+    {{#if minus}}
+    <td><button class="removeCourseBTN"><i class="fa fa-trash"></i></button></td>
+    {{else}}
+    {{#if available}}
+    <td><button class="addCourseBTN"><i class="fa fa-plus" aria-hidden="true"></i></button></td>
+    {{else}}
+    <td><button class="unavailable"><i class="fa fa-ban"></i></button></td>
+ 
+    {{/if}}
+    {{/if}}
+    <td class="hidden">{{id}}</td>
+    </tr>
+    {{/each}}
+    </script>
+
+    <div class="studentInfo">
+        <h2>my courses</h2>
+        <table>
+          <th>name</th>
+          <th>time</th>
+          <th>teacher</th>
+          <th>Withdraw</th>
+          <tbody  class="myCorsess"></tbody>
+        </table>
+    </div>
+
+    <div class="user-search">
+        <h1>looking for new courses!</h1>
+
+        <div class="searchCourse">
+          <input id="searchCourse" placeholder="Write the course Name" />
+          <button class="searchButton"><i class="fa fa-search search-btn"></i></button>
+        </div>
+        <br />
+        <table>
+          <th>name</th>
+          <th>time</th>
+          <th>teacher</th>
+          <th>join</th>
+          <tbody  class="searchedCourses"></tbody>
+        </table>
+    </div>
+
+  </body>
+<script src="./handlebars/dist/handlebars.min.js"></script>
+<script src="./jquery/dist/jquery.js"></script>
+<script src="./Model Student.js"></script>
+<script src="Render Student.js"></script>
+<script src="./main.js"></script>
+</html>

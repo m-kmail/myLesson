@@ -5,7 +5,6 @@ const Teacher = require("./Teacher.js");
 
 const courseSchema = new Schema({
   name: String,
-  students: [{ type: Schema.Types.ObjectId, ref: "Student" }],
   teacher: { type: Schema.Types.ObjectId, ref: "Teacher" },
   startTime: Number,
   available: Boolean,
