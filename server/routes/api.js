@@ -11,17 +11,29 @@ router.get("/user/:userEmail", function (request, response) {
     allStudents
       .findOne({ email: userEmailParameter })
       .exec(function (err, user) {
-        if (!user) response.send(undefined);
-        else response.send(user);
+        if (!user) {
+          response.status(404).send({
+            Error:
+              "The email address you entered isn't connected to an account",
+          });
+        } else response.send(user);
       });
   } else if (userEmailParameter.includes("@teacher.com")) {
     allTeachers
       .findOne({ email: userEmailParameter })
       .exec(function (err, user) {
-        if (!user) response.send(undefined);
-        else response.send(user);
+        if (!user) {
+          response.status(404).send({
+            Error:
+              "The email address you entered isn't connected to an account",
+          });
+        } else response.send(user);
       });
-  } else response.send(undefined);
+  } else {
+    response.status(404).send({
+      Error: "The email address you entered isn't connected to an account",
+    });
+  }
 });
 
 router.get("/students/:courseId", function (request, response) {
@@ -50,7 +62,11 @@ router.post("/addUser", function (request, response) {
         });
         newUser.save();
         response.end();
-      } else response.send("email already exists");
+      } else {
+        response.status(409).send({
+          Error: "The email address you entered is already existed",
+        });
+      }
     });
   } else if (userInfo.email.includes("@teacher.com")) {
     allTeachers.findOne({ email: userInfo.email }).exec(function (err, user) {

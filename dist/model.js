@@ -26,44 +26,59 @@ class Model {
   }
 
   createUser(newUser) {
-    $.post("/addUser", newUser, function (result) {
-      if (result == "") {
+    // $.post("/addUser", newUser, function (result) {});
+    $.ajax({
+      method: "POST",
+      url: "/addUser",
+      data: newUser,
+      success: (result) => {
         ErrorDiv.empty();
         ErrorDiv.show();
         ErrorDiv.append(`<p style="color:green">Done...go to login</p>`);
-      } else {
+      },
+      error: (result) => {
+        console.log(result);
         ErrorDiv.empty();
         ErrorDiv.show();
-        ErrorDiv.append(`<p>${result}</p>`);
-      }
+        ErrorDiv.append(`<p>${result.responseJSON.Error}</p>`);
+      },
     });
   }
 
   login(email, pass) {
-    $.get(`/user/${email}`, (user) => {
-      if (!user) {
+    $.ajax({
+      method: "GET",
+      url: `/user/${email}`,
+      success: (user) => {
+        {
+          console.log(user);
+
+          if (user.password != pass) {
+            this.ErrorDiv.empty();
+            this.ErrorDiv.show();
+            this.ErrorDiv.append(`<p>Invalid Password</p>`);
+          } else {
+            let thisUser = {
+              email: email,
+              name: user.name,
+            };
+
+            thisUser = JSON.stringify(thisUser);
+            localStorage.setItem("userInfo", thisUser);
+            this.ErrorDiv.empty();
+            if (email.includes("@student.com"))
+              window.location.href = "./student.html";
+            else window.location.href = "./teacher.html";
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        console.log("not exist");
         this.ErrorDiv.empty();
         this.ErrorDiv.show();
         this.ErrorDiv.append(`<p>Invalid Email</p>`);
-      } else {
-        if (user.password != pass) {
-          this.ErrorDiv.empty();
-          this.ErrorDiv.show();
-          this.ErrorDiv.append(`<p>Invalid Password</p>`);
-        } else {
-          let thisUser = {
-            email: email,
-            name: user.name,
-          };
-
-          thisUser = JSON.stringify(thisUser);
-          localStorage.setItem("userInfo", thisUser);
-          this.ErrorDiv.empty();
-          if (email.includes("@student.com"))
-            window.location.href = "./student.html";
-          else window.location.href = "./teacher.html";
-        }
-      }
+      },
     });
   }
 
